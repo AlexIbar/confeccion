@@ -15,6 +15,10 @@ export class CreateInsumoDto {
     codigoProveedor:string;
 
     @IsString()
+    @MaxLength(50, {message:"El stock debe de ser de maximo 50 caracteres"})
+    stock:string
+
+    @IsString()
     @MaxLength(50, {message:"El codigoJN debe de ser de maximo 50 caracteres"})
     codigoJn:string;
 

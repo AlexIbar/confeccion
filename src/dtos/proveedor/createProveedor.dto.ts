@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger/dist/decorators";
-import { IsString,  IsEmail, IsInt, IsOptional, IsPhoneNumber, MaxLength, MinLength } from "class-validator";
+import { IsString,  IsEmail, IsInt, IsOptional, IsPhoneNumber, MaxLength, MinLength, IsNumberString } from "class-validator";
 import { EmpresasEntity } from "src/entities/empresas.entity";
 import { TipoProveedoresEntity } from "src/entities/maestros/tipoProveedores.entity";
 
@@ -16,6 +16,7 @@ export class CreateProveedorDto{
     @MinLength(7, { message:"No puede ser un valor vacio"})
     nit:string;
 
+    @IsNumberString()
     @MaxLength(15, {message:"La longitud del nombre no puede superar los 100 caracteres"})
     @MinLength(7, {message:"El dato ingresado no corresponde a un número de telefono"})
     telefono:string;

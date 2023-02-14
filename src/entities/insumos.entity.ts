@@ -34,6 +34,14 @@ export class InsumosEntity{
         type:'nvarchar',
         length:50,
         nullable:false,
+        name:'cod_proveedor'
+    })
+    stock:string;
+
+    @Column({
+        type:'nvarchar',
+        length:50,
+        nullable:false,
         name:'cod_jn'
     })
     codigoJn:string;
