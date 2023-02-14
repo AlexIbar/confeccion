@@ -8,7 +8,7 @@ export class MovimientoInventarioEntity{
     id:number;
 
     @Column({
-        type:'date',
+        type:'datetime',
         nullable:false,
         default:()=> "CURRENT_TIMESTAMP"
     })

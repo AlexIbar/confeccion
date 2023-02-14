@@ -12,14 +12,13 @@ export class UpdateProveedorDto{
     nombre:string;
 
     @IsInt()
-    nit:number;
+    nit:string;
 
     @IsOptional()
     @IsString()
     @MaxLength(250, {message:"La longitud del nombre no puede superar los 100 caracteres"})
     imagen:string;
 
-    @IsPhoneNumber()
     @MaxLength(15, {message:"La longitud del nombre no puede superar los 100 caracteres"})
     @MinLength(7, {message:"El dato ingresado no corresponde a un número de telefono"})
     telefono:string;

@@ -28,7 +28,15 @@ export class InsumosEntity{
         nullable:false,
         name:'cod_proveedor'
     })
-    codigoProveedor
+    codigoProveedor:string;
+
+    @Column({
+        type:'nvarchar',
+        length:50,
+        nullable:false,
+        name:'cod_jn'
+    })
+    codigoJn:string;
 
     @Column({
         type:'double',

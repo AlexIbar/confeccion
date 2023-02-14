@@ -41,7 +41,7 @@ export class ProveedorService {
 
         newProveedor.empresa = empresa;
         newProveedor.tipoProveedor = tipoProveedor;
-        
+
         const newProveedorEntity = this.proveedorRepository.create(newProveedor)
 
         return this.proveedorRepository.save(newProveedorEntity);

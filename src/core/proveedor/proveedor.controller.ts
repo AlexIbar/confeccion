@@ -18,7 +18,7 @@ export class ProveedorController {
         return this.proveedorService.create(createProveedor)
     }
 
-    @Get('id')
+    @Get(':id')
     getAllBodegasByEmpresas(
         @Param('id', new ParseIntPipe({errorHttpStatusCode:HttpStatus.NOT_ACCEPTABLE})) id:number
     ){

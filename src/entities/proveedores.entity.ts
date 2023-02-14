@@ -17,17 +17,11 @@ export class ProveedoresEntity{
     nombre:string;
 
     @Column({
-        type:'int',
+        type:'nvarchar',
+        length:11,
         nullable:false
     })
-    nit:number;
-
-    @Column({
-        type:'nvarchar',
-        length:250,
-        nullable:true
-    })
-    imagen:string;
+    nit:string;
 
     @Column({
         type:'boolean',

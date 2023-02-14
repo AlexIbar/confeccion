@@ -7,7 +7,7 @@ export class CreateBodegaDto {
     nombre:string;
 
     @IsString()
-    @MaxLength(250, {message:"La descripción debe de ser de maximo 100 caracteres"})
+    @MaxLength(100, {message:"La descripción debe de ser de maximo 100 caracteres"})
     descripcion:string;
 
     @IsInt()

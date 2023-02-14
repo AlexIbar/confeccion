@@ -11,15 +11,11 @@ export class CreateProveedorDto{
     @MinLength(1, { message:"No puede ser un valor vacio"})
     nombre:string;
 
-    @IsInt()
-    nit:number;
-
-    @IsOptional()
     @IsString()
-    @MaxLength(250, {message:"La longitud del nombre no puede superar los 100 caracteres"})
-    imagen:string;
+    @MaxLength(11, {message:"La longitud del nombre no puede superar los 100 caracteres"})
+    @MinLength(7, { message:"No puede ser un valor vacio"})
+    nit:string;
 
-    @IsPhoneNumber()
     @MaxLength(15, {message:"La longitud del nombre no puede superar los 100 caracteres"})
     @MinLength(7, {message:"El dato ingresado no corresponde a un número de telefono"})
     telefono:string;
