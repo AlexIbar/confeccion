@@ -2,6 +2,7 @@ import { Column, Entity, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from
 import { InsumosEntity } from "./insumos.entity";
 import { BodegaEntity } from "./maestros/bodegas.entity";
 import { ProveedoresEntity } from "./proveedores.entity";
+import { UsuarioEntity } from "./usuarios.entity";
 
 @Entity('empresas')
 export class EmpresasEntity {
@@ -55,4 +56,7 @@ export class EmpresasEntity {
 
     @OneToMany(()=> BodegaEntity, bodegasEntity => bodegasEntity.empresa)
     bodegas: BodegaEntity[]
+
+    @OneToMany(()=> UsuarioEntity, usuarioEntity => usuarioEntity.empresa)
+    usuarios:UsuarioEntity[]
 }
