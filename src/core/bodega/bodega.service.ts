@@ -47,6 +47,10 @@ export class BodegaService {
 
         this.bodegaRepo.merge(bodegaActualizar, updateBodega)
 
-        return this.bodegaRepo.save(bodegaActualizar)
+        let actualiza = await this.bodegaRepo.save(bodegaActualizar)
+
+        if(actualiza) return bodegaActualizar;
+
+        return new HttpException("Ocurrio un error actualizando la bodega, por favor intentelo más tarde", HttpStatus.NOT_FOUND)
     }
 }

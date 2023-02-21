@@ -16,8 +16,8 @@ export class AuthService {
         private configService: ConfigService
     ){}
 
-    async login(login:Login){
-        let usuario = await this.usuarioRepo.findOne({where: {email:login.email}, relations:['roles']})
+    async login(login:Login) : Promise<string | HttpException>{
+        let usuario = await this.usuarioRepo.findOne({where: {email:login.email}, relations:['roles', 'empresa']})
         if(!usuario) return new HttpException("Usuario y/o contraseña no valida", HttpStatus.NOT_FOUND)
         let contraseniaValida = await bcrypt.compare(login.password, usuario.password)
         if(!contraseniaValida) return new HttpException("Usuario y/o contraseña no valida", HttpStatus.NOT_FOUND)
@@ -31,7 +31,8 @@ export class AuthService {
             email:usuario.email,
             roles,
             activo:usuario.activo,
-            usuario:usuario.nombre
+            usuario:usuario.nombre,
+            empresa:usuario.empresa.id
         }, exp: Math.floor(Date.now() / 1000) + ((60 * 60)*3)}, this.configService.get('SECRET_JWT'))
 
         return logHash

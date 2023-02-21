@@ -21,6 +21,13 @@ export class BodegaEntity{
     })
     descripcion:string;
 
+    @Column({
+        type:'bool',
+        nullable:false,
+        default:true
+    })
+    activa:boolean
+
     @OneToMany(()=> InsumosEntity, insumosEntity => insumosEntity.bodega)
     insumos:InsumosEntity[];
 

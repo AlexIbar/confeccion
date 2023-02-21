@@ -18,6 +18,7 @@ import { VerificaRolMiddleware } from './Middleware/VerificaRolMiddleware';
 import { UsuarioController } from './core/usuario/usuario.controller';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
+import { BodegaController } from './core/bodega/bodega.controller';
 
 @Module({
   imports: [
@@ -47,9 +48,10 @@ import { AuthModule } from './auth/auth.module';
     UsuarioModule,
     AuthModule],
 })
+
 export class AppModule implements NestModule {
    configure(consumer: MiddlewareConsumer){
     consumer.apply(VerificaRolMiddleware)
-    .forRoutes(UsuarioController)
+    .forRoutes(UsuarioController, BodegaController)
    }
 }

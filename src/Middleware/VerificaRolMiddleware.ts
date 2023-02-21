@@ -4,7 +4,6 @@ import { Request, Response, NextFunction } from 'express';
 import { verify } from 'jsonwebtoken'
 import { accesos } from './Accesos';
 import { ConfigService } from '@nestjs/config';
-import { TokenDecode } from 'src/dtos/usuarios/tokenDecode.dto';
 
 @Injectable()
 export class VerificaRolMiddleware implements NestMiddleware {
@@ -29,13 +28,12 @@ export class VerificaRolMiddleware implements NestMiddleware {
 
   use(req: Request, res: Response, next: NextFunction) {
     let token: string = req.headers?.authorization?.replace('Bearer ', '')
-    console.log(token)
+
     let ruta = this.rutaSelect(req)
     console.log(ruta)
     try {
       let data:any = verify(token, this.configService.get("SECRET_JWT"))
       let roles:Array<string> = data.data.roles
-      console.log('ingreso')
       let hallado = roles.filter(rol => {
         if(accesos[rol.toUpperCase()]) return accesos[rol.toUpperCase()].find(ele => ele == ruta || ele+'/' == ruta)
         return false
@@ -47,6 +45,7 @@ export class VerificaRolMiddleware implements NestMiddleware {
           porRol: true
         })
       }
+      req.headers.usuario = data;
       next()
     } catch (error) {
       return res.status(401).json({

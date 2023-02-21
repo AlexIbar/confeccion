@@ -1,11 +1,19 @@
 export const accesos:object = {
     ROOT: [
-      'POST-/usuario'
+      'POST-/usuario',
+      'GET-/usuario',
+      'GET-/bodega',
+      'POST-/bodega',
+      'PUT-/bodega'
     ],
     ADMIN:[
-      'POST-/usuario'
+      'POST-/usuario',
+      'GET-/usuario',
+      'GET-/bodega',
+      'POST-/bodega',
+      'PUT-/bodega'
     ],
     cliente:[
-      'GET-/platos'
+      'GET-/usuario'
     ]
   }

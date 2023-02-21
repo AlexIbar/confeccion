@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post} from '@nestjs/common';
 import { Login } from 'src/dtos/usuarios/Login';
 import { AuthService } from './auth.service';
 
@@ -9,9 +9,14 @@ export class AuthController {
     ){}
 
     @Post()
-    login(
+    async login(
         @Body() logUser : Login
     ){
-        return this.authService.login(logUser)
+        let usuarioLogin =await this.authService.login(logUser)
+
+        if(usuarioLogin.toString().split(' ').length == 1){
+            return {token:usuarioLogin}
+        }
+        return usuarioLogin
     }
 }

@@ -1,5 +1,6 @@
-import { Body, Controller, Get, HttpStatus, Param, ParseIntPipe, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Param, ParseIntPipe, Post, Put, Request } from '@nestjs/common';
 import { CreateBodegaDto } from 'src/dtos/bodegas/createBodega.dto';
+import { UpdateBodegaDto } from 'src/dtos/bodegas/updateBodega.dto';
 import { BodegaService } from './bodega.service';
 
 @Controller('bodega')
@@ -9,16 +10,27 @@ export class BodegaController {
     ){}
     @Post()
     create(
-        @Body() createBodega: CreateBodegaDto
+        @Body() createBodega: CreateBodegaDto,
+        @Request() request
     ){
+        createBodega.idEmpresa = request.headers.usuario.data.empresa
         return this.bodegaService.createBodega(createBodega)
     }
 
-    @Get(':id')
+    @Get()
     getBodegasByEmpresa(
-        @Param('id', new ParseIntPipe({errorHttpStatusCode:HttpStatus.NOT_ACCEPTABLE})) id:number
+        @Request() request
     ){
-        return this.bodegaService.getBodegasByEmpresa(id);
+        return this.bodegaService.getBodegasByEmpresa(request.headers.usuario.data.empresa);
+    }
+
+    @Put()
+    update(
+        @Body() updateBodega: UpdateBodegaDto,
+        @Request() request
+    ){
+        updateBodega.idEmpresa = request.headers.usuario.data.empresa;
+        return this.bodegaService.update(updateBodega)
     }
 
 }
