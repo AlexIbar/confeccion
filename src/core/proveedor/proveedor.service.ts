@@ -25,9 +25,14 @@ export class ProveedorService {
         return this.proveedorRepository.findOne({where:{id}})
     }
 
+    getTipoProveedores(){
+        console.log('ingreso')
+        return this.tipoProveedorRepository.find()
+    }
+
     async getAllBodegasByEmpresa(id:number){
         let empresa = await this.empresaRepository.findOne({where:{id}})
-        return this.proveedorRepository.find({where:{empresa:empresa}})
+        return this.proveedorRepository.find({where:{empresa:empresa}, relations:['tipoProveedor']})
     }
 
     async create(newProveedor:CreateProveedorDto) : Promise<ProveedoresEntity | HttpException>{
@@ -56,8 +61,18 @@ export class ProveedorService {
 
         if(!proveedor) return new HttpException("Error, no hay ningun proveedor registrado con esta identificacion para la empresa", HttpStatus.NOT_FOUND)
         
+        let tipoProv = await this.tipoProveedorRepository.findOne({where:{id:updateProveedor.tipoProveedorId}})
+
+        if(!tipoProv) return new HttpException("Error, ningun no existe tipo de proveedor in id "+updateProveedor.tipoProveedorId, HttpStatus.NOT_FOUND)
+        
+        updateProveedor.tipoProveedor = tipoProv
+
         this.proveedorRepository.merge(proveedor, updateProveedor)
 
-        return this.proveedorRepository.save(proveedor);
+        let actualizar = await this.proveedorRepository.save(proveedor);
+
+        if(actualizar) return proveedor;
+
+        return new HttpException("Ocurrio un error actualizando el proveedor", HttpStatus.BAD_GATEWAY)
     }
 }

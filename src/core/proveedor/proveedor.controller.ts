@@ -1,6 +1,7 @@
-import { Body, Controller, Get, HttpException, HttpStatus, Param, ParseIntPipe, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpException, HttpStatus, Param, ParseIntPipe, Post, Put, Request } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger/dist';
 import { CreateProveedorDto } from 'src/dtos/proveedor/createProveedor.dto';
+import { UpdateProveedorDto } from 'src/dtos/proveedor/updateProveedor.dto';
 import { ProveedoresEntity } from 'src/entities/proveedores.entity';
 import { ProveedorService } from './proveedor.service';
 
@@ -13,15 +14,32 @@ export class ProveedorController {
 
     @Post()
     async create(
-        @Body() createProveedor : CreateProveedorDto
+        @Body() createProveedor : CreateProveedorDto,
+        @Request() request
     ) : Promise<ProveedoresEntity | HttpException>{
+        createProveedor.empresaId = request.headers.usuario.data.empresa
         return this.proveedorService.create(createProveedor)
     }
 
-    @Get(':id')
+    @Put()
+    async update(
+        @Body() updateProveedor : UpdateProveedorDto,
+        @Request() request
+    ) : Promise<ProveedoresEntity | HttpException>{
+        updateProveedor.empresaId = request.headers.usuario.data.empresa
+        return this.proveedorService.update(updateProveedor)
+    }
+
+    @Get()
     getAllBodegasByEmpresas(
-        @Param('id', new ParseIntPipe({errorHttpStatusCode:HttpStatus.NOT_ACCEPTABLE})) id:number
+        @Request() request
     ){
+        let id = request.headers.usuario.data.empresa
         return this.proveedorService.getAllBodegasByEmpresa(id)
+    }
+
+    @Get('tipo-proveedores/all')
+    getTipoProveedores(){
+        return this.proveedorService.getTipoProveedores()
     }
 }

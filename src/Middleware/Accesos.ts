@@ -4,14 +4,22 @@ export const accesos:object = {
       'GET-/usuario',
       'GET-/bodega',
       'POST-/bodega',
-      'PUT-/bodega'
+      'PUT-/bodega',
+      'GET-/proveedor/tipo-proveedores/all',
+      'POST-/proveedor',
+      'GET-/proveedor',
+      'PUT-/proveedor'
     ],
     ADMIN:[
       'POST-/usuario',
       'GET-/usuario',
       'GET-/bodega',
       'POST-/bodega',
-      'PUT-/bodega'
+      'PUT-/bodega',
+      'GET-/proveedor/tipo-proveedores/all',
+      'POST-/proveedor',
+      'GET-/proveedor',
+      'PUT-/proveedor'
     ],
     cliente:[
       'GET-/usuario'

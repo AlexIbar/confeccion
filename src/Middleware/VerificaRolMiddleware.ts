@@ -28,7 +28,6 @@ export class VerificaRolMiddleware implements NestMiddleware {
 
   use(req: Request, res: Response, next: NextFunction) {
     let token: string = req.headers?.authorization?.replace('Bearer ', '')
-
     let ruta = this.rutaSelect(req)
     console.log(ruta)
     try {

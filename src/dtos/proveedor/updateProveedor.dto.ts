@@ -1,4 +1,5 @@
-import { IsString, IsEmail, IsInt, IsOptional, IsPhoneNumber, MaxLength, MinLength, IsBoolean } from "class-validator";
+import { IsString, IsEmail, IsInt, IsOptional, IsPhoneNumber, MaxLength, MinLength, IsBoolean, Length, IsNumberString } from "class-validator";
+import { TipoProveedoresEntity } from "src/entities/maestros/tipoProveedores.entity";
 
 
 export class UpdateProveedorDto{
@@ -7,22 +8,16 @@ export class UpdateProveedorDto{
     id:number;
 
     @IsString()
-    @MaxLength(100, {message:"La longitud del nombre no puede superar los 100 caracteres"})
-    @MinLength(1, { message:"No puede ser un valor vacio"})
+    @Length(1,100, {message:"La longitud del nombre debe de ser de minimo 1 caracter maximo 100"})
     nombre:string;
 
-    @IsInt()
+    @IsNumberString()
+    @Length(7,11, {message:"La longitud del nit debe de ser de minimo 7 caracter maximo 11"})
     nit:string;
 
-    @IsOptional()
-    @IsString()
-    @MaxLength(250, {message:"La longitud del nombre no puede superar los 100 caracteres"})
-    imagen:string;
-
-    @MaxLength(15, {message:"La longitud del nombre no puede superar los 100 caracteres"})
-    @MinLength(7, {message:"El dato ingresado no corresponde a un número de telefono"})
+    @IsNumberString()
+    @Length(7,11, {message:"La longitud del nit debe de ser de minimo 7 caracter maximo 11"})
     telefono:string;
-
 
     @IsEmail()
     @MaxLength(100, {message:"El email supera el maximo de caracteres permitidos"})
@@ -39,7 +34,14 @@ export class UpdateProveedorDto{
     @IsBoolean()
     activo:boolean;
 
+    @IsOptional()
     @IsInt()
     empresaId:number;
+
+    @IsInt()
+    tipoProveedorId:number;
+
+    @IsOptional()
+    tipoProveedor : TipoProveedoresEntity;
 
 }

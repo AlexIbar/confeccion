@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger/dist/decorators";
-import { IsString,  IsEmail, IsInt, IsOptional, IsPhoneNumber, MaxLength, MinLength, IsNumberString } from "class-validator";
+import { IsString,  IsEmail, IsInt, IsOptional, IsPhoneNumber, MaxLength, MinLength, IsNumberString, IsBoolean, Length } from "class-validator";
 import { EmpresasEntity } from "src/entities/empresas.entity";
 import { TipoProveedoresEntity } from "src/entities/maestros/tipoProveedores.entity";
 
@@ -7,23 +7,23 @@ import { TipoProveedoresEntity } from "src/entities/maestros/tipoProveedores.ent
 export class CreateProveedorDto{
 
     @IsString()
-    @MaxLength(100, {message:"La longitud del nombre no puede superar los 100 caracteres"})
-    @MinLength(1, { message:"No puede ser un valor vacio"})
+    @Length(1,100, {message:"La longitud del nombre debe de ser de minimo 1 caracter maximo 100"})
     nombre:string;
 
     @IsString()
-    @MaxLength(11, {message:"La longitud del nombre no puede superar los 100 caracteres"})
-    @MinLength(7, { message:"No puede ser un valor vacio"})
+    @Length(7,11, {message:"La longitud del nit debe de ser de minimo 7 caracter maximo 11"})
     nit:string;
 
     @IsNumberString()
-    @MaxLength(15, {message:"La longitud del nombre no puede superar los 100 caracteres"})
-    @MinLength(7, {message:"El dato ingresado no corresponde a un número de telefono"})
+    @Length(7,11, {message:"La longitud del nit debe de ser de minimo 7 caracter maximo 11"})
     telefono:string;
 
     @IsEmail()
     @MaxLength(100, {message:"El email supera el maximo de caracteres permitidos"})
     email:string;
+
+    @IsBoolean()
+    administraInventario:boolean
 
     @IsString()
     @MaxLength(200, {message:"El maximo de caracteres permitidos para la dirección es de 200"})
@@ -39,6 +39,7 @@ export class CreateProveedorDto{
     @IsOptional()
     tipoProveedor : TipoProveedoresEntity;
 
+    @IsOptional()
     @IsInt()
     empresaId:number;
 
