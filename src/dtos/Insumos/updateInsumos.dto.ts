@@ -1,27 +1,28 @@
-import { IsIn, IsInt, IsNumber, IsOptional, IsString, Length, MaxLength, MinLength } from "class-validator";
+import { IsInt, IsNumber, IsOptional, IsString, MaxLength } from "class-validator";
 import { EmpresasEntity } from "src/entities/empresas.entity";
 import { BodegaEntity } from "src/entities/maestros/bodegas.entity";
 import { UnidadMedidaEntity } from "src/entities/maestros/unidadMedida.entity";
 import { ProveedoresEntity } from "src/entities/proveedores.entity";
 
-export class CreateInsumoDto {
+export class UpdateInsumoDto {
 
+    @IsInt()
+    id:number;
     
     @IsString()
-    @MinLength(3, {message:"El nombre debe de ser de minimo 3 caracteres"})
     @MaxLength(250, {message:"El nombre debe de ser de maximo 250 caracteres"})
     nombre:string;
 
     @IsString()
-    @Length(1,50, {message:"El {codigoProveedor} debe tener como minimo 1 caracter y maxímo 50"})
+    @MaxLength(50, {message:"El codigoProveedor debe de ser de maximo 50 caracteres"})
     codigoProveedor:string;
 
     @IsString()
-    @Length(1,50, {message:"El {stock} debe tener como minimo 1 caracter y maxímo 50"})
+    @MaxLength(50, {message:"El stock debe de ser de maximo 50 caracteres"})
     stock:string
 
     @IsString()
-    @Length(1,50, {message:"El {codigoJn} debe tener como minimo 1 caracter y maxímo 50"})
+    @MaxLength(50, {message:"El codigoJN debe de ser de maximo 50 caracteres"})
     codigoJn:string;
 
     @IsInt()
@@ -37,12 +38,6 @@ export class CreateInsumoDto {
     invActual:number;
 
     @IsInt()
-    proveedorId:number;
-
-    @IsOptional()
-    proveedor:ProveedoresEntity;
-
-    @IsInt()
     bodegaId:number;
 
     @IsOptional()
@@ -53,11 +48,10 @@ export class CreateInsumoDto {
     empresaId:number;
 
     @IsOptional()
-    empresa:EmpresasEntity;
-
     @IsInt()
     medidaId:number;
 
     @IsOptional()
     unidadMedida:UnidadMedidaEntity;
+
 }

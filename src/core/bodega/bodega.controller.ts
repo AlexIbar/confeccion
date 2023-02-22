@@ -24,6 +24,13 @@ export class BodegaController {
         return this.bodegaService.getBodegasByEmpresa(request.headers.usuario.data.empresa);
     }
 
+    @Get('activa')
+    getBodegasActivasByEmpresa(
+        @Request() request
+    ){
+        return this.bodegaService.getBodegasActivasByEmpresa(request.headers.usuario.data.empresa);
+    }
+
     @Put()
     update(
         @Body() updateBodega: UpdateBodegaDto,

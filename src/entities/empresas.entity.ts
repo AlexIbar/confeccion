@@ -1,6 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 import { InsumosEntity } from "./insumos.entity";
 import { BodegaEntity } from "./maestros/bodegas.entity";
+import { UnidadMedidaEntity } from "./maestros/unidadMedida.entity";
 import { ProveedoresEntity } from "./proveedores.entity";
 import { UsuarioEntity } from "./usuarios.entity";
 
@@ -59,4 +60,7 @@ export class EmpresasEntity {
 
     @OneToMany(()=> UsuarioEntity, usuarioEntity => usuarioEntity.empresa)
     usuarios:UsuarioEntity[]
+
+    @OneToMany(()=> UnidadMedidaEntity, unidadMedida => unidadMedida.empresa)
+    unidadesMedida:UnidadMedidaEntity[]
 }

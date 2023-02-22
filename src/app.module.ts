@@ -20,6 +20,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { BodegaController } from './core/bodega/bodega.controller';
 import { ProveedorController } from './core/proveedor/proveedor.controller';
+import { InsumoController } from './core/insumo/insumo.controller';
+import { UnidadMedidaEntity } from './entities/maestros/unidadMedida.entity';
+import { UnidadMedidaModule } from './core/unidad-medida/unidad-medida.module';
+import { UnidadMedidaController } from './core/unidad-medida/unidad-medida.controller';
 
 @Module({
   imports: [
@@ -37,7 +41,7 @@ import { ProveedorController } from './core/proveedor/proveedor.controller';
         password:configService.get("TYPEORM_PASSWORD"),
         database:configService.get("TYPEORM_DATABASE"),
         entities:[
-          EmpresasEntity, ProveedoresEntity, InsumosEntity, TipoProveedoresEntity, BodegaEntity, MovimientoInventarioEntity, TipoMovimientoEntity, UsuarioEntity, RolesEntity
+          EmpresasEntity, ProveedoresEntity, InsumosEntity, TipoProveedoresEntity, BodegaEntity, MovimientoInventarioEntity, TipoMovimientoEntity, UsuarioEntity, RolesEntity, UnidadMedidaEntity
         ],
         synchronize:true
       }),
@@ -47,12 +51,13 @@ import { ProveedorController } from './core/proveedor/proveedor.controller';
     InsumoModule,
     BodegaModule,
     UsuarioModule,
-    AuthModule],
+    AuthModule,
+    UnidadMedidaModule],
 })
 
 export class AppModule implements NestModule {
    configure(consumer: MiddlewareConsumer){
     consumer.apply(VerificaRolMiddleware)
-    .forRoutes(UsuarioController, BodegaController, ProveedorController)
+    .forRoutes(UsuarioController, BodegaController, ProveedorController, InsumoController, UnidadMedidaController)
    }
 }

@@ -24,6 +24,14 @@ export class BodegaService {
         return this.bodegaRepo.find({where:{empresa}})
     }
 
+    async getBodegasActivasByEmpresa(idEmpresa:number) : Promise < BodegaEntity [] | HttpException > {
+        let empresa = await this.empresaRepo.findOne({where :{ id : idEmpresa}})
+
+        if(!empresa) return new HttpException("La empresa de consulta no se encuentra registrada", HttpStatus.NOT_FOUND)
+
+        return this.bodegaRepo.find({where:{empresa, activa:true}})
+    }
+
     async createBodega(createBodega : CreateBodegaDto) : Promise<BodegaEntity | HttpException>{
         let empresa = await this.empresaRepo.findOne({where :{ id : createBodega.idEmpresa}})
 

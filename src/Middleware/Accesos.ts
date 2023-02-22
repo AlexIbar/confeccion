@@ -8,7 +8,12 @@ export const accesos:object = {
       'GET-/proveedor/tipo-proveedores/all',
       'POST-/proveedor',
       'GET-/proveedor',
-      'PUT-/proveedor'
+      'PUT-/proveedor',
+      'GET-/bodega/activa',
+      'GET-/unidad-medida',
+      'POST-/insumo',
+      'GET-/insumo',
+      'PUT-/insumo'
     ],
     ADMIN:[
       'POST-/usuario',
@@ -19,7 +24,12 @@ export const accesos:object = {
       'GET-/proveedor/tipo-proveedores/all',
       'POST-/proveedor',
       'GET-/proveedor',
-      'PUT-/proveedor'
+      'PUT-/proveedor',
+      'GET-/bodega/activa',
+      'GET-/unidad-medida',
+      'POST-/insumo',
+      'GET-/insumo',
+      'PUT-/insumo'
     ],
     cliente:[
       'GET-/usuario'
